@@ -2,7 +2,7 @@ function [CFFit] = CalcAreaLiffPP(data_file,CFOptions)
 
 para = data_file.para;
 perp = data_file.perp;
-iso = data_file.iso;
+%iso = data_file.iso;
 
 if isfield(CFOptions,'flag_plot')
     flag_plot = CFOptions.flag_plot;
@@ -54,25 +54,25 @@ pause(0.1)
 end
 end
 
-for ii = 1:length(iso)
-[fitresult,gof,fitinfo] = fit(iso(ii).w3,iso(ii).PP,CFOptions.fitfcn, 'StartPoint',CFOptions.startpoint,...
-            'lower',CFOptions.lb,'upper',CFOptions.ub);
-CFFit.iso(ii).t2 = data_file.iso(ii).t2;
-CFFit.iso(ii).fitresult =fitresult;
-CFFit.iso(ii).gof = gof;
-CFFit.iso(ii).fitinfo = fitinfo;
-CFFit.iso(ii).area = CFFit.iso(ii).fitresult.a.*CFFit.iso(ii).fitresult.c.*sqrt(pi);
-CFFit.iso(ii).area_conf = confint(CFFit.iso(ii).fitresult);
-CFFit.iso(ii).area_std = sqrt(((CFFit.iso(ii).area_conf(2,1)-CFFit.iso(ii).fitresult.a).^2)./((CFFit.iso(ii).fitresult.a+...
-CFFit.iso(ii).area_conf(2,3)-CFFit.iso(ii).fitresult.c)./CFFit.iso(ii).fitresult.c).^2);
-if flag_plot
-figure(ii),clf
-hold on
-plot(iso(ii).w3,iso(ii).PP,'o')
-plot(iso(ii).w3,CFFit.iso(ii).fitresult(iso(ii).w3))
-hold off
-pause(0.1)
-end
-end
-CFFit.T_K = data_file.T_K;
-CFFit.T_degC = data_file.T_degC;
+% for ii = 1:length(iso)
+% [fitresult,gof,fitinfo] = fit(iso(ii).w3,iso(ii).PP,CFOptions.fitfcn, 'StartPoint',CFOptions.startpoint,...
+%             'lower',CFOptions.lb,'upper',CFOptions.ub);
+% CFFit.iso(ii).t2 = data_file.iso(ii).t2;
+% CFFit.iso(ii).fitresult =fitresult;
+% CFFit.iso(ii).gof = gof;
+% CFFit.iso(ii).fitinfo = fitinfo;
+% CFFit.iso(ii).area = CFFit.iso(ii).fitresult.a.*CFFit.iso(ii).fitresult.c.*sqrt(pi);
+% CFFit.iso(ii).area_conf = confint(CFFit.iso(ii).fitresult);
+% CFFit.iso(ii).area_std = sqrt(((CFFit.iso(ii).area_conf(2,1)-CFFit.iso(ii).fitresult.a).^2)./((CFFit.iso(ii).fitresult.a+...
+% CFFit.iso(ii).area_conf(2,3)-CFFit.iso(ii).fitresult.c)./CFFit.iso(ii).fitresult.c).^2);
+% if flag_plot
+% figure(ii),clf
+% hold on
+% plot(iso(ii).w3,iso(ii).PP,'o')
+% plot(iso(ii).w3,CFFit.iso(ii).fitresult(iso(ii).w3))
+% hold off
+% pause(0.1)
+% end
+% end
+% CFFit.T_K = data_file.T_K;
+% CFFit.T_degC = data_file.T_degC;

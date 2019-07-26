@@ -1,5 +1,5 @@
 function [L,R,T_degC,T_K] = loadULTRA(data_file_search_string,calibration_file_name)
-n_pixels_per_array = 128;
+n_pixels_per_array = 128-1;
 
 path_name = fileparts(data_file_search_string);
 files = dir(data_file_search_string);
@@ -28,7 +28,7 @@ for ii = 1:length(files)
     L(ii).time_units = 'ps';
     
     R(ii).w1 = [];
-    R(ii).PP  = temp(n_pixels_per_array + (1:n_pixels_per_array),:);
+    R(ii).PP  = temp(n_pixels_per_array,:);% + (1:n_pixels_per_array),:);
     % last point is... different... throw it out for now
     R(ii).PP = R(ii).PP(1:end-1,:);
     R(ii).w3 = w3(1:end-1);
